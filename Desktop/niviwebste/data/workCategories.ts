@@ -12,6 +12,7 @@ export interface WorkCategory {
 
 export interface ReelAsset {
   id: string;
+  title: string;
   src: string;
   url: string;
 }
@@ -19,41 +20,49 @@ export interface ReelAsset {
 export const INSTAGRAM_REELS: ReelAsset[] = [
   {
     id: 'coachreel',
+    title: 'Coach Reel',
     src: '/videos/projects/coachreel.MP4',
     url: 'https://www.instagram.com/reel/DcAe2aLNjl-/?igsi=MTl1eDM5b2M3MzgzbQ==',
   },
   {
     id: 'shammenareel',
+    title: 'Shammena Reel',
     src: '/videos/projects/shammenareel.MP4',
     url: 'https://www.instagram.com/reel/DLUhu0fzp1h/?igsi=MXJnb2g1MnBvN3FrcQ==',
   },
   {
     id: 'kaviyareel',
+    title: 'Kaviya Reel',
     src: '/videos/projects/kaviyareel.MP4',
     url: 'https://www.instagram.com/reel/Cz1AOS0Jsoz/?igsi=MTdydzNnYXlhbXNybg==',
   },
   {
     id: 'shameenareel',
+    title: 'Shameena Reel',
     src: '/videos/projects/shameenareel.MP4',
     url: 'https://www.instagram.com/reel/DP8rG_qEyMg/?igsi=MXZycWhrbDNza2o2cg==',
   },
   {
     id: 'srishtireel',
+    title: 'Srishti Reel',
     src: '/videos/projects/srishtireel.MP4',
     url: 'https://www.instagram.com/reel/DaIPGsXqqZk/?igsi=d3VjZnRnaTk1ZG9h',
   },
   {
     id: 'coach2',
+    title: 'Coach Reel 02',
     src: '/videos/projects/coach2.MP4',
     url: 'https://www.instagram.com/reel/DZM_9VASMqJ/?igsi=N3N2bDE3dnRlMTB4',
   },
   {
     id: 'coach3',
+    title: 'Coach Reel 03',
     src: '/videos/projects/coach3.MP4',
     url: 'https://www.instagram.com/reel/DZHyTmgNk_V/?igsi=MWxmcXJ2dXM5bmNleg==',
   },
   {
     id: 'reels',
+    title: 'Reel Collection',
     src: '/videos/projects/reels.MP4',
     url: 'https://www.instagram.com/reel/DSrHlvxE4nl/?igsi=MWgzZWFnZ3lsZjlyYw==',
   },
