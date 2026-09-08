@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Infinite horizontal marquee (left) for bio image strips */
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-left {
+  animation: marqueeLeft 20s linear infinite;
+}
+
+@layer base {
+  :root {
+    --bg-black: #000000;
+    --bg-off-black: #080808;
+    --bg-dark-grey: #151515;
+    --text-grey: #777777;
+    --text-light-grey: #B8B8B8;
+    --text-off-white: #F2F2F2;
+    --text-pure-white: #FFFFFF;
+  }
+
+  html, body {
+    background-color: #000000;
+    color: #F2F2F2;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom selection */
+  ::selection {
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+}
+
+@keyframes carouselProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes marqueeLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Hide default cursor on desktop when custom cursor is active */
+@media (min-width: 1024px) {
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled * {
+    cursor: none !important;
+  }
+}
+
+/* Typography Editorial Utility Classes */
+.font-editorial-hero {
+  font-size: clamp(3.5rem, 10vw, 11.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.font-editorial-headline {
+  font-size: clamp(2.5rem, 6.5vw, 6.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.font-editorial-subhead {
+  font-size: clamp(1.5rem, 3.5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.font-meta {
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #777777;
+}
+
+/* Film Grain Canvas */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Marquee Keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
