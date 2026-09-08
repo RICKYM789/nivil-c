@@ -120,7 +120,7 @@ export const WORK_CATEGORIES: WorkCategory[] = [
     title: 'PERSONAL BRANDING & TALKING HEADS',
     eyebrow: 'Founder Content / Social',
     description: 'Vertical personal branding videos and talking-head reels designed to build trust, authority and warm audience connection.',
-    cover: '/images/projects/talkinghear1.jpeg',
+    cover: '/images/projects/freelc.jpeg',
     gallerySlugs: [],
   },
 ];

@@ -22,7 +22,11 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Lumes & Chromes | Photography, Film & Content Studio',
+  metadataBase: new URL('https://lumesandchromes.com'),
+  title: {
+    default: 'Lumes & Chromes | Photography, Film & Content Studio',
+    template: '%s | Lumes & Chromes',
+  },
   description:
     'Lumes & Chromes is a Chennai-based visual storytelling studio creating photography, films, branded content and social media experiences.',
   keywords: [
@@ -39,11 +43,23 @@ export const metadata: Metadata = {
   authors: [{ name: 'Nive — Lumes & Chromes' }],
   creator: 'Lumes & Chromes',
   publisher: 'Lumes & Chromes Studio',
+  applicationName: 'Lumes & Chromes',
+  category: 'creative studio',
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: '/images/logo.png',
+    apple: '/images/logo.png',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: 'Lumes & Chromes | Photography, Film & Content Studio',
     description:
       'Chennai-based visual storytelling studio creating photography, films, branded content and social media experiences.',
-    url: 'https://lumesandchromes.com',
+    url: '/',
     siteName: 'Lumes & Chromes',
     locale: 'en_US',
     type: 'website',
@@ -61,7 +77,9 @@ export const metadata: Metadata = {
     title: 'Lumes & Chromes | Photography, Film & Content Studio',
     description:
       'Chennai-based visual storytelling studio creating photography, films, branded content and social media experiences.',
-    images: ['/images/hero-poster.svg']
+    images: ['/images/hero-poster.svg'],
+    creator: '@lumesandchromes',
+    site: '@lumesandchromes',
   },
   robots: {
     index: true,

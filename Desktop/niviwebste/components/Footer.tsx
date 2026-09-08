@@ -6,10 +6,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#000000] text-[#777777] py-16 px-6 md:px-12 border-t border-[#151515] select-none">
+    <footer className="w-full bg-[#161616] text-[#999999] py-16 px-6 md:px-12 border-t border-[#2A2A2A] select-none">
       <div className="max-w-[1800px] mx-auto space-y-12">
         {/* Top 3-Column Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-[#151515]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-[#2A2A2A]">
           {/* Left Column */}
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-3">

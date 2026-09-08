@@ -1,5 +1,31 @@
+import type { Metadata } from 'next';
 import CategoryWork from '@/components/CategoryWork';
 import { getCategory } from '@/data/workCategories';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const category = getCategory(slug);
+  const title = category?.title ?? 'Selected Work';
+  const description = category?.description ?? 'Selected work by Lumes & Chromes.';
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/work/${slug}`,
+    },
+    openGraph: {
+      title: `${title} | Lumes & Chromes`,
+      description,
+      url: `/work/${slug}`,
+      type: 'website',
+    },
+  };
+}
 
 export default async function CategoryWorkPage({
   params,

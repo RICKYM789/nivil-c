@@ -12,7 +12,7 @@ const FREELANCE_CARD = {
   number: '07',
   title: 'OTHER WORKS AS FREELANCE',
   eyebrow: 'External Projects & Links',
-  cover: '/images/projects/freelance.jpeg',
+  cover: '/images/projects/freelancercovernv.jpeg',
 };
 
 const ALL_CARDS = [...WORK_CATEGORIES, FREELANCE_CARD];
