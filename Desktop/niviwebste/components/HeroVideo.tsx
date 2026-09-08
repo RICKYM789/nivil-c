@@ -12,8 +12,7 @@ export default function HeroVideo() {
         preload="auto"
         data-cursor="none"
       >
-        <source src="/videos/projects/sushmi%20beach%20for%20website%20%281%29.mov" type="video/mp4" />
-        <source src="/videos/projects/sushmi%20beach%20for%20website%20%281%29.mov" type="video/quicktime" />
+        <source src="/videos/projects/hero-reel.mp4" type="video/mp4" />
       </video>
 
       <div className="absolute inset-0 bg-gradient-to-b from-[#000000]/60 via-[#000000]/20 to-[#000000]/80 pointer-events-none" />

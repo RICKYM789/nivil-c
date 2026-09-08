@@ -43,3 +43,5 @@ next-env.d.ts
 # Oversized source videos are kept locally and hosted outside GitHub.
 /public/videos/projects/Mariyaan x Sushmi - a LoneWolf's Vision.mp4
 /public/videos/projects/sushmi beach for website (1).mov
+# hero-reel.mp4 is a compressed version (~9.5 MB) and IS tracked in git.
+
