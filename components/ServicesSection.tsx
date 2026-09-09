@@ -1,10 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SERVICES, ServiceItem } from '@/data/services';
 
 export default function ServicesSection() {
   const [hoveredService, setHoveredService] = useState<ServiceItem | null>(null);
+  const [mobileWordIndex, setMobileWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setMobileWordIndex((index) => index + 1);
+    }, 1500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -55,15 +64,14 @@ export default function ServicesSection() {
                     </h3>
                   </div>
 
-                  {/* Right: Arrow */}
-                  <span className="shrink-0 font-mono text-xs text-[#777777] group-hover:text-[#F2F2F2] group-hover:translate-x-1 transition-all duration-300">
-                    &rarr;
-                  </span>
                 </div>
 
                 {/* Description */}
                 <p className="hidden xl:block mt-2 font-sans text-xs text-[#777777] group-hover:text-[#B8B8B8] leading-relaxed line-clamp-1">
                   {service.description}
+                </p>
+                <p className="md:hidden mt-3 min-h-5 font-sans text-sm text-[#B8B8B8] leading-relaxed">
+                  {service.description.split(' ')[mobileWordIndex % service.description.split(' ').length]}
                 </p>
               </div>
             );

@@ -51,10 +51,10 @@ export default function ContactCTA() {
             <div>
               <p className="text-[#B8B8B8] mb-1">DIRECT INQUIRIES</p>
               <a
-                href="mailto:lumi.chomi@gmail.com"
+                href="mailto:lumi.chromi@gmail.com"
                 className="hover:text-[#FFFFFF] transition-colors lowercase"
               >
-                lumi.chomi@gmail.com
+                lumi.chromi@gmail.com
               </a>
             </div>
             <div>

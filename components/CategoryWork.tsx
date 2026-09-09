@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getCategoryImages, WorkCategory, INSTAGRAM_REELS } from '@/data/workCategories';
@@ -31,7 +31,7 @@ function CategoryImageCard({
       data-cursor="project"
       data-cursor-text="INSPECT"
     >
-      <div className="relative w-full aspect-auto overflow-hidden bg-[#101010]">
+      <div className="relative w-full aspect-auto overflow-hidden bg-[#101010] flex items-center justify-center">
         {!loaded && (
           <div className="absolute inset-0 bg-[#121212] animate-pulse flex items-center justify-center min-h-[280px]">
             <span className="font-mono text-[10px] text-[#444444] uppercase tracking-widest">
@@ -43,10 +43,12 @@ function CategoryImageCard({
           src={img.src}
           alt={img.title}
           onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover contrast-105 transition-all duration-700 group-hover:scale-105 ${
+          className={`w-full h-full object-contain contrast-105 transition-all duration-700 group-hover:scale-105 ${
             loaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
+          draggable={false}
+          onContextMenu={(event) => event.preventDefault()}
         />
         <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333]">
           {img.category}
@@ -237,7 +239,10 @@ export default function CategoryWork({ category }: { category: WorkCategory | un
               </button>
             </div>
 
-            <div className="relative my-auto flex-1 flex items-center justify-center py-6 px-4">
+            <div
+              className="relative my-auto flex-1 flex items-center justify-center py-6 px-4 select-none"
+              onContextMenu={(event) => event.preventDefault()}
+            >
               <button
                 onClick={() =>
                   setLightboxIndex((lightboxIndex - 1 + images.length) % images.length)
@@ -260,8 +265,13 @@ export default function CategoryWork({ category }: { category: WorkCategory | un
                 <img
                   src={activeImage.src}
                   alt={activeImage.title}
-                  className="max-h-[75vh] w-auto object-contain mx-auto contrast-105"
+                  draggable={false}
+                  onContextMenu={(event) => event.preventDefault()}
+                  onDragStart={(event) => event.preventDefault()}
+                  className="max-h-[75vh] w-auto object-contain mx-auto contrast-105 pointer-events-none select-none"
+                  style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none', userSelect: 'none' }}
                 />
+                <div className="absolute inset-0 z-[1]" aria-hidden="true" />
               </motion.div>
 
               <button
@@ -277,7 +287,7 @@ export default function CategoryWork({ category }: { category: WorkCategory | un
             <div className="border-t border-[#222222] pt-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative z-10">
               <div>
                 <span className="font-mono text-xs text-[#777777] tracking-widest uppercase block mb-1">
-                  {activeImage.location} — {activeImage.year}
+                  LOCATION: {activeImage.location}
                 </span>
                 <h2 className="font-editorial-headline text-2xl md:text-3xl text-[#FFFFFF]">
                   {activeImage.title}
@@ -286,14 +296,6 @@ export default function CategoryWork({ category }: { category: WorkCategory | un
                   {activeImage.description}
                 </p>
               </div>
-              <a
-                href={activeImage.src}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-xs tracking-widest uppercase text-[#FFFFFF] border-b border-[#FFFFFF] pb-1 hover:text-[#B8B8B8] transition-colors"
-              >
-                OPEN RAW FILE ↗
-              </a>
             </div>
           </motion.div>
         )}

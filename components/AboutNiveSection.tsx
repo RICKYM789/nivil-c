@@ -35,7 +35,7 @@ export default function AboutNiveSection() {
             >
               <div className="relative w-full aspect-[3/4] bg-[#080808] border border-[#222222] overflow-hidden">
                 <img
-                  src="/images/projects/nive_founder_final.png"
+                  src="/images/projects/foundercover1.png"
                   alt="Nive — Founder of Lumes & Chromes"
                   className="w-full h-full object-cover contrast-125 group-hover:scale-105 transition-transform duration-1000"
                 />
@@ -87,8 +87,8 @@ export default function AboutNiveSection() {
                   KEY PHILOSOPHY
                 </span>
                 <span className="font-editorial-headline text-[#FFFFFF] block">
-                  SMALL REELS. <br />
-                  <span className="text-[#777777]">BIG IMPACT.</span>
+                  Premium Quality <br />
+                  <span className="text-[#777777]">Affordable Pricing.</span>
                 </span>
               </div>
             </motion.div>

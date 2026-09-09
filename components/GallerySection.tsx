@@ -28,50 +28,48 @@ export default function GallerySection() {
             </h2>
           </div>
 
-          <div className="max-w-md space-y-4">
+          <div className="max-w-md">
             <p className="font-sans text-sm text-[#777777] leading-relaxed">
               Curated explorations in high-contrast light, shadow geometry, coastal horizons, and editorial portraiture created by Nive at Lumes &amp; Chromes.
             </p>
-            <div className="font-mono text-xs text-[#FFFFFF] tracking-widest uppercase">
-              [ TWO-ROW INFINITE MOTION PREVIEW ]
-            </div>
           </div>
         </div>
 
-        {/* 2-Row Infinite Sliding Marquee */}
         <div className="space-y-4 overflow-hidden py-4">
-          {/* Row 1: Top images moving LEFT */}
           <div className="relative w-full overflow-hidden flex select-none">
             <div className="flex space-x-4 animate-[marqueeLeft_35s_linear_infinite] hover:[animation-play-state:paused] shrink-0">
               {topRowImages.concat(topRowImages).map((img, idx) => (
                 <div
                   key={`top-${img.id}-${idx}`}
-                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer"
+                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer flex items-center justify-center"
                 >
                   <img
                     src={img.src}
                     alt={img.title}
-                    className="w-full h-full object-cover contrast-105 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain contrast-105 group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
+                    draggable={false}
+                    onContextMenu={(event) => event.preventDefault()}
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Row 2: Bottom images moving RIGHT */}
           <div className="relative w-full overflow-hidden flex select-none">
             <div className="flex space-x-4 animate-[marqueeRight_35s_linear_infinite] hover:[animation-play-state:paused] shrink-0">
               {bottomRowImages.concat(bottomRowImages).map((img, idx) => (
                 <div
                   key={`bottom-${img.id}-${idx}`}
-                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer"
+                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer flex items-center justify-center"
                 >
                   <img
                     src={img.src}
                     alt={img.title}
-                    className="w-full h-full object-cover contrast-105 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain contrast-105 group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
+                    draggable={false}
+                    onContextMenu={(event) => event.preventDefault()}
                   />
                 </div>
               ))}

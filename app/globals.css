@@ -55,14 +55,6 @@
   100% { transform: translateX(0%); }
 }
 
-/* Hide default cursor on desktop when custom cursor is active */
-@media (min-width: 1024px) {
-  body.custom-cursor-enabled,
-  body.custom-cursor-enabled * {
-    cursor: none !important;
-  }
-}
-
 /* Typography Editorial Utility Classes */
 .font-editorial-hero {
   font-size: clamp(3.5rem, 10vw, 11.5rem);

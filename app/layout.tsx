@@ -4,7 +4,6 @@ import './globals.css';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import CustomCursor from '@/components/CustomCursor';
 import FilmGrain from '@/components/FilmGrain';
 import SmoothScroll from '@/components/SmoothScroll';
 import PageTransition from '@/components/PageTransition';
@@ -104,7 +103,6 @@ export default function RootLayout({
       <body className="bg-[#000000] text-[#F2F2F2] antialiased selection:bg-[#FFFFFF] selection:text-[#000000]">
         <SmoothScroll>
           <FilmGrain />
-          <CustomCursor />
           <Navbar />
           <PageTransition>
             <main className="min-h-screen">

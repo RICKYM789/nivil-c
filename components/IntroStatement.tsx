@@ -11,6 +11,7 @@ export default function IntroStatement() {
         alt=""
         fill
         sizes="100vw"
+        unoptimized
         className="object-cover opacity-75"
         aria-hidden="true"
       />

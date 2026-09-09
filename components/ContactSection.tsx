@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const CONTACT_EMAIL = 'lumi.chomi@gmail.com';
+const CONTACT_EMAIL = 'lumi.chromi@gmail.com';
 const CONTACT_PHONE = '+91 91767 76588';
 const WHATSAPP_URL = 'https://wa.me/919176776588';
 

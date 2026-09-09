@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GALLERY_IMAGES, GalleryImage } from '@/data/gallery';
+import { GALLERY_IMAGES } from '@/data/gallery';
 import { Maximize2, ChevronLeft, ChevronRight, X, Sparkles, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -185,10 +185,12 @@ export default function FullGalleryComponent() {
                     <img
                       src={img.src}
                       alt={img.title}
-                      className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
+                      className={`w-full h-full object-contain transition-all duration-700 group-hover:scale-105 ${
                         isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
                       }`}
                       loading="lazy"
+                      draggable={false}
+                      onContextMenu={(event) => event.preventDefault()}
                     />
 
                     {/* Gradient Overlay on Hover */}
@@ -231,14 +233,23 @@ export default function FullGalleryComponent() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image View */}
-              <div className="relative flex-1 w-full h-[60vh] md:h-[80vh] flex items-center justify-center bg-[#000000] p-4">
+              <div
+                className="relative flex-1 w-full h-[60vh] md:h-[80vh] flex items-center justify-center bg-[#000000] p-4 select-none"
+                onContextMenu={(e) => e.preventDefault()}
+              >
                 <img
                   src={activeImage.src}
                   alt={activeImage.title}
-                  className={`max-w-full max-h-full object-contain ${
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
+                  className={`max-w-full max-h-full object-contain pointer-events-none select-none ${
                     isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
                   }`}
+                  style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none', userSelect: 'none' }}
                 />
+                {/* Transparent shield to block right-click / long-press save */}
+                <div className="absolute inset-0 z-[1]" aria-hidden="true" />
 
                 {/* Left/Right Prev Next Buttons */}
                 <button
@@ -280,20 +291,8 @@ export default function FullGalleryComponent() {
                   </p>
                 </div>
 
-                <div className="flex items-center space-x-4">
-                  <a
-                    href={activeImage.src}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[10px] text-[#FFFFFF] tracking-widest border border-[#333333] px-4 py-2 hover:bg-[#FFFFFF] hover:text-[#000000] transition-colors uppercase inline-block"
-                  >
-                    HIGH RES VIEW ↗
-                  </a>
-                </div>
-
                 <div className="border-t border-[#151515] pt-6 flex justify-between font-mono text-xs text-[#777777]">
                   <span>LOCATION: {activeImage.location}</span>
-                  <span>YEAR: {activeImage.year}</span>
                 </div>
               </div>
             </div>

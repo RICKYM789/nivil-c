@@ -163,8 +163,11 @@ export default function SelectedWork() {
                           isCenter
                             ? 'contrast-125 group-hover:scale-105'
                             : 'contrast-100 brightness-75'
+                        } ${
+                          category.slug === 'insta-reels'
+                            ? '[object-position:center_35%] md:[object-position:center_15%]'
+                            : '[object-position:center_35%]'
                         }`}
-                        style={{ objectPosition: 'center 35%' }}
                       />
                       <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1.5 border border-[#333333]">
                         0{idx + 1} / 0{totalCards}
