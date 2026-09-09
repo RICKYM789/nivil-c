@@ -44,6 +44,12 @@ export default function Navbar() {
           {/* Logo Brand with Logo Image */}
           <Link
             href="/"
+            onClick={(e) => {
+              if (window.scrollY > 0) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
             className="group flex items-center space-x-3 focus:outline-none"
             data-cursor="hover"
           >

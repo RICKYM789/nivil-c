@@ -16,8 +16,7 @@ const CATEGORIES = [
   { label: 'Fake Sangeet', count: 8 },
   { label: 'Beach x Sushmi', count: 5 },
   { label: 'EDC Editorial', count: 10 },
-  { label: 'Kovil Kulam', count: 3 },
-  { label: 'Maria Editorial', count: 3 },
+  { label: 'Kovil Kulam', count: 12 },
 ] as const;
 
 export default function FullGalleryComponent() {
@@ -168,7 +167,16 @@ export default function FullGalleryComponent() {
                   : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4'
               }
             >
-              {filteredImages.map((img, idx) => (
+              {filteredImages.map((img, idx) => {
+                const frameNum = GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1;
+                const rotateLeft = [4, 34, 44, 46, 47, 119, 145, 150, 159, 162];
+                const rotationClass = rotateLeft.includes(frameNum)
+                  ? '-rotate-90'
+                  : frameNum === 5
+                    ? 'rotate-90'
+                    : '';
+
+                return (
                 <motion.div
                   key={img.id}
                   layout
@@ -181,17 +189,21 @@ export default function FullGalleryComponent() {
                   data-cursor="project"
                   data-cursor-text="INSPECT"
                 >
-                  <div className="relative w-full aspect-auto overflow-hidden bg-[#101010]">
+                  <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#101010]">
                     <img
                       src={img.src}
                       alt={img.title}
-                      className={`w-full h-full object-contain transition-all duration-700 group-hover:scale-105 ${
+                      className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${rotationClass} ${
                         isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
                       }`}
                       loading="lazy"
                       draggable={false}
                       onContextMenu={(event) => event.preventDefault()}
                     />
+
+                    <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333] z-10">
+                      {String(GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1).padStart(3, '0')}
+                    </div>
 
                     {/* Gradient Overlay on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300" />
@@ -202,7 +214,8 @@ export default function FullGalleryComponent() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           </AnimatePresence>
         </motion.div>
@@ -282,6 +295,9 @@ export default function FullGalleryComponent() {
                 <div>
                   <span className="font-mono text-xs text-[#777777] uppercase tracking-widest block mb-2">
                     {activeImage.category}
+                  </span>
+                  <span className="font-mono text-[10px] text-[#777777] tracking-widest block mb-4">
+                    FRAME {String(GALLERY_IMAGES.findIndex((g) => g.id === activeImage.id) + 1).padStart(3, '0')} OF {GALLERY_IMAGES.length}
                   </span>
                   <h3 className="font-editorial-subhead text-2xl text-[#FFFFFF] mb-4">
                     {activeImage.title}

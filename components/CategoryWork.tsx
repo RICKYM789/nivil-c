@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getCategoryImages, WorkCategory, INSTAGRAM_REELS } from '@/data/workCategories';
 import { GalleryImage } from '@/data/gallery';
+import { GALLERY_IMAGES } from '@/data/gallery';
 
 function CategoryImageCard({
   img,
@@ -31,9 +32,9 @@ function CategoryImageCard({
       data-cursor="project"
       data-cursor-text="INSPECT"
     >
-      <div className="relative w-full aspect-auto overflow-hidden bg-[#101010] flex items-center justify-center">
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#101010] flex items-center justify-center">
         {!loaded && (
-          <div className="absolute inset-0 bg-[#121212] animate-pulse flex items-center justify-center min-h-[280px]">
+          <div className="absolute inset-0 bg-[#121212] animate-pulse flex items-center justify-center">
             <span className="font-mono text-[10px] text-[#444444] uppercase tracking-widest">
               LOADING FRAME...
             </span>
@@ -43,7 +44,7 @@ function CategoryImageCard({
           src={img.src}
           alt={img.title}
           onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-contain contrast-105 transition-all duration-700 group-hover:scale-105 ${
+          className={`w-full h-full object-cover contrast-105 transition-all duration-700 group-hover:scale-105 ${
             loaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
@@ -51,6 +52,9 @@ function CategoryImageCard({
           onContextMenu={(event) => event.preventDefault()}
         />
         <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333]">
+          {String(GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1).padStart(3, '0')}
+        </div>
+        <div className="absolute top-4 right-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333]">
           {img.category}
         </div>
       </div>
@@ -226,7 +230,7 @@ export default function CategoryWork({ category }: { category: WorkCategory | un
                   {activeImage.category}
                 </span>
                 <span className="font-mono text-[10px] text-[#777777]">
-                  FRAME {lightboxIndex + 1} OF {images.length}
+                  FRAME {String(GALLERY_IMAGES.findIndex((g) => g.id === activeImage.id) + 1).padStart(3, '0')} OF {GALLERY_IMAGES.length}
                 </span>
               </div>
               <button

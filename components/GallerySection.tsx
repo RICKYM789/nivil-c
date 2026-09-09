@@ -41,12 +41,12 @@ export default function GallerySection() {
               {topRowImages.concat(topRowImages).map((img, idx) => (
                 <div
                   key={`top-${img.id}-${idx}`}
-                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer flex items-center justify-center"
+                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer"
                 >
                   <img
                     src={img.src}
                     alt={img.title}
-                    className="w-full h-full object-contain contrast-105 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover contrast-105 group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                     draggable={false}
                     onContextMenu={(event) => event.preventDefault()}
@@ -61,12 +61,12 @@ export default function GallerySection() {
               {bottomRowImages.concat(bottomRowImages).map((img, idx) => (
                 <div
                   key={`bottom-${img.id}-${idx}`}
-                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer flex items-center justify-center"
+                  className="w-48 sm:w-56 md:w-64 aspect-[4/5] bg-[#080808] border border-[#151515] overflow-hidden shrink-0 group relative cursor-pointer"
                 >
                   <img
                     src={img.src}
                     alt={img.title}
-                    className="w-full h-full object-contain contrast-105 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover contrast-105 group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                     draggable={false}
                     onContextMenu={(event) => event.preventDefault()}
