@@ -160,63 +160,135 @@ export default function FullGalleryComponent() {
         {/* Gallery Image Grid */}
         <motion.div layout className="w-full">
           <AnimatePresence mode="popLayout">
-            <div
-              className={
-                viewLayout === 'masonry'
-                  ? 'columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-4 space-y-4'
-                  : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4'
-              }
-            >
-              {filteredImages.map((img, idx) => {
-                const frameNum = GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1;
-                const rotateLeft = [4, 34, 44, 46, 47, 119, 145, 150, 159, 162];
-                const rotationClass = rotateLeft.includes(frameNum)
-                  ? '-rotate-90'
-                  : frameNum === 5
-                    ? 'rotate-90'
-                    : '';
+            {viewLayout === 'masonry' ? (
+              /* ─── MASONRY: CSS Grid with varied spans ─── */
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 auto-rows-[180px] sm:auto-rows-[200px] md:auto-rows-[220px] gap-[3px]">
+                {filteredImages.map((img, idx) => {
+                  const frameNum = GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1;
+                  const rotateLeft = [4, 34, 44, 46, 47, 119, 145, 150, 156, 159, 162];
+                  const rotationClass = rotateLeft.includes(frameNum)
+                    ? '-rotate-90'
+                    : frameNum === 5
+                      ? 'rotate-90'
+                      : '';
 
-                return (
-                <motion.div
-                  key={img.id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: (idx % 12) * 0.03 }}
-                  onClick={() => setLightboxIndex(idx)}
-                  className="group relative bg-[#080808] border border-[#151515] overflow-hidden cursor-pointer break-inside-avoid"
-                  data-cursor="project"
-                  data-cursor-text="INSPECT"
-                >
-                  <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#101010]">
-                    <img
-                      src={img.src}
-                      alt={img.title}
-                      className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${rotationClass} ${
-                        isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
-                      }`}
-                      loading="lazy"
-                      draggable={false}
-                      onContextMenu={(event) => event.preventDefault()}
-                    />
+                  // Determine span based on aspect ratio and position for visual variety
+                  const isLandscape = img.aspectRatio === 'landscape';
+                  const isSquare = img.aspectRatio === 'square';
+                  // Every 5th landscape gets featured (2 cols), every 7th portrait gets tall (2 rows)
+                  const isFeatured = isLandscape && (idx % 5 === 0);
+                  const isTall = !isLandscape && !isSquare && (idx % 7 === 2);
+                  const isHero = idx % 13 === 0 && idx > 0; // Every 13th image gets extra large
 
-                    <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333] z-10">
-                      {String(GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1).padStart(3, '0')}
-                    </div>
+                  let spanClass = 'col-span-1 row-span-1'; // default
+                  if (isHero) {
+                    spanClass = 'col-span-2 row-span-2';
+                  } else if (isFeatured) {
+                    spanClass = 'col-span-2 row-span-1';
+                  } else if (isTall) {
+                    spanClass = 'col-span-1 row-span-2';
+                  }
 
-                    {/* Gradient Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300" />
+                  return (
+                    <motion.div
+                      key={img.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.4, delay: (idx % 16) * 0.02 }}
+                      onClick={() => setLightboxIndex(idx)}
+                      className={`group relative overflow-hidden cursor-pointer ${spanClass}`}
+                      data-cursor="project"
+                      data-cursor-text="INSPECT"
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.title}
+                        className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${rotationClass} ${
+                          isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
+                        }`}
+                        loading="lazy"
+                        draggable={false}
+                        onContextMenu={(event) => event.preventDefault()}
+                      />
 
-                    {/* Top Right Zoom Icon */}
-                    <div className="absolute top-4 right-4 text-[#FFFFFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#000000]/80 p-2 border border-[#333333]">
-                      <Maximize2 className="w-4 h-4" />
-                    </div>
-                  </div>
-                </motion.div>
-                );
-              })}
-            </div>
+                      {/* Frame Number Badge */}
+                      <div className="absolute top-3 left-3 font-mono text-[9px] tracking-widest text-[#FFFFFF] bg-[#000000]/70 px-2 py-0.5 backdrop-blur-sm z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {String(frameNum).padStart(3, '0')}
+                      </div>
+
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-[#000000]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Bottom Info on Hover */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="font-mono text-[9px] tracking-widest text-[#999999] uppercase">{img.category}</p>
+                        <p className="font-sans text-xs text-[#FFFFFF] mt-0.5 line-clamp-1">{img.title}</p>
+                      </div>
+
+                      {/* Zoom Icon */}
+                      <div className="absolute top-3 right-3 text-[#FFFFFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#000000]/50 backdrop-blur-sm p-1.5">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            ) : (
+              /* ─── GRID: Uniform equal-sized cells ─── */
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                {filteredImages.map((img, idx) => {
+                  const frameNum = GALLERY_IMAGES.findIndex((g) => g.id === img.id) + 1;
+                  const rotateLeft = [4, 34, 44, 46, 47, 119, 145, 150, 156, 159, 162];
+                  const rotationClass = rotateLeft.includes(frameNum)
+                    ? '-rotate-90'
+                    : frameNum === 5
+                      ? 'rotate-90'
+                      : '';
+
+                  return (
+                    <motion.div
+                      key={img.id}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.4, delay: (idx % 12) * 0.03 }}
+                      onClick={() => setLightboxIndex(idx)}
+                      className="group relative overflow-hidden cursor-pointer bg-[#080808] border border-[#151515] transition-transform duration-500 hover:-translate-y-1"
+                      data-cursor="project"
+                      data-cursor-text="INSPECT"
+                    >
+                      <div className="relative w-full overflow-hidden bg-[#101010] aspect-[4/5]">
+                        <img
+                          src={img.src}
+                          alt={img.title}
+                          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${rotationClass} ${
+                            isGrayscale ? 'grayscale contrast-125' : 'contrast-105'
+                          }`}
+                          loading="lazy"
+                          draggable={false}
+                          onContextMenu={(event) => event.preventDefault()}
+                        />
+
+                        <div className="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-[#FFFFFF] bg-[#000000]/80 px-3 py-1 border border-[#333333] z-10">
+                          {String(frameNum).padStart(3, '0')}
+                        </div>
+
+                        {/* Gradient Overlay on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300" />
+
+                        {/* Top Right Zoom Icon */}
+                        <div className="absolute top-4 right-4 text-[#FFFFFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#000000]/80 p-2 border border-[#333333]">
+                          <Maximize2 className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
           </AnimatePresence>
         </motion.div>
       </div>
