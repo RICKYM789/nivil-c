@@ -12,7 +12,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-[#2A2A2A]">
           {/* Left Column */}
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-3">
+            <Link
+              href="/"
+              onClick={(e) => {
+                if (window.scrollY > 0) {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="flex items-center space-x-3"
+            >
               <div className="w-10 h-10 bg-[#000000] border border-[#333333] p-1 flex items-center justify-center">
                 <img
                   src="/images/logo.png"
@@ -23,7 +32,7 @@ export default function Footer() {
               <span className="text-[#FFFFFF] font-black text-xl tracking-tighter">
                 LUMES &amp; CHROMES<span className="text-xs font-mono align-super ml-0.5 text-[#777777]">®</span>
               </span>
-            </div>
+            </Link>
             <p className="font-mono text-xs tracking-widest text-[#777777]">
               PHOTOGRAPHY &amp; VISUAL STORYTELLING STUDIO
             </p>
